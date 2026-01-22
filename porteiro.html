@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Condomínio - Oráculo</title>
+    <link rel="stylesheet" href="porteiro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.0.3/tsparticles.bundle.min.js"></script>
+</head>
+
+<body>
+    <div id="tsparticles"></div>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-left">
+            <img src="logo.jpeg" alt="Logo" class="logo">
+            <div class="header-info">
+                <h1 class="header-title">Play Condomínio</h1>
+                <p class="header-subtitle">Oráculo - Status da Rede em Tempo Real</p>
+            </div>
+        </div>
+        <button id="btn-modo-porteiro" class="btn-modo-porteiro">
+            <i class="fa-solid fa-user"></i> Modo Porteiro
+        </button>
+    </header>
+
+    <!-- RESUMO -->
+    <section class="resumo-container">
+        <div class="resumo-card total">
+            <div class="resumo-label">Total</div>
+            <div class="resumo-valor" id="total">0</div>
+        </div>
+        <div class="resumo-card online">
+            <div class="resumo-label">Online</div>
+            <div class="resumo-valor" id="online">0</div>
+        </div>
+        <div class="resumo-card alerta">
+            <div class="resumo-label">Alerta</div>
+            <div class="resumo-valor" id="alerta">0</div>
+        </div>
+        <div class="resumo-card offline">
+            <div class="resumo-label">Offline</div>
+            <div class="resumo-valor" id="offline">0</div>
+        </div>
+    </section>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+
+        <!-- ETAPA 1: LISTA DE PORTARIAS -->
+        <section id="etapa-portarias" class="etapa active">
+            <div id="lista-portarias" class="grid-portarias"></div>
+        </section>
+
+        <!-- ETAPA 2: TIPO DE ACESSO -->
+        <section id="etapa-tipo-acesso" class="etapa">
+            <h2 class="etapa-title">Selecione o Acesso:</h2>
+            <div class="grid-acesso">
+                <button class="btn-acesso" onclick="selecionarTipoAcesso('pedestres')">
+                    <i class="fa-solid fa-walking"></i>
+                    <span>Pedestres</span>
+                </button>
+                <button class="btn-acesso" onclick="selecionarTipoAcesso('veiculos')">
+                    <i class="fa-solid fa-car"></i>
+                    <span>Veículos</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ETAPA 3: SELECIONAR EQUIPAMENTO -->
+        <section id="etapa-equipamentos" class="etapa">
+            <h2 class="etapa-title">Selecione o Equipamento:</h2>
+            <div id="lista-equipamentos" class="grid-equipamentos"></div>
+        </section>
+
+        <!-- ETAPA 4: SELECIONAR SUB-EQUIPAMENTOS -->
+        <section id="etapa-subequipamentos" class="etapa">
+            <h2 class="etapa-title">O Equipamento <span id="nome-equipamento-selecionado"></span></h2>
+            <p class="etapa-subtitle">Aciona os seguintes dispositivos<br>Marque quais não estão respondendo:</p>
+            <div id="lista-subequipamentos" class="lista-checks"></div>
+            <button class="btn-primary" onclick="avancarParaReset()">Continuar</button>
+        </section>
+
+        <!-- ETAPA 5: RESET -->
+        <section id="etapa-reset" class="etapa">
+            <div class="reset-box">
+                <i class="fa-solid fa-exclamation-triangle"
+                    style="font-size:3rem;color:#facc15;margin-bottom:1rem;"></i>
+                <h2 class="etapa-title">Para seguir com a abertura de chamado,</h2>
+                <p class="etapa-subtitle">Antes é necessário realizar um procedimento de<br><strong>reset do
+                        equipamento</strong><br>No Quadro de Comando.</p>
+                <p class="etapa-subtitle" style="margin-top:1rem;">Por Favor Realize o Reset no equipamento, antes de
+                    continuar.</p>
+                <div class="reset-buttons">
+                    <button class="btn-reset success" onclick="resetFuncionou()">
+                        <i class="fa-solid fa-check-circle"></i>
+                        Fiz o reset, e<br>Voltou a funcionar
+                    </button>
+                    <button class="btn-reset error" onclick="abrirChamado()">
+                        <i class="fa-solid fa-tools"></i>
+                        Fiz o reset, e<br>Continua com Problema<br>Quero abrir chamado
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ETAPA 6: CHAMADO ABERTO -->
+        <section id="etapa-sucesso" class="etapa">
+            <div class="sucesso-box">
+                <i class="fa-solid fa-check-circle" style="font-size:4rem;color:#10b981;margin-bottom:1rem;"></i>
+                <h2 class="etapa-title">Chamado aberto com sucesso.</h2>
+                <div class="chamado-detalhes">
+                    <p><strong>Data e hora:</strong> <span id="chamado-data"></span></p>
+                    <p><strong>Detalhes:</strong></p>
+                    <p><strong>Nº chamado:</strong> <span id="chamado-numero"></span></p>
+                    <p><strong>Equipamento:</strong> <span id="chamado-equipamento"></span></p>
+                    <p><strong>Problema:</strong> <span id="chamado-problema"></span></p>
+                    <p><strong>Reset:</strong> Realizado</p>
+                </div>
+                <button class="btn-primary" onclick="voltarInicio()">
+                    <i class="fa-solid fa-home"></i> Voltar para tela Inicial
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <script type="module" src="porteiro.js"></script>
+</body>
+
+</html>
